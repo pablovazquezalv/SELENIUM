@@ -1,0 +1,38 @@
+   # print("Products found")
+        # time.sleep(5)
+        # last_height = self.driver.execute_script("return document.body.scrollHeight")
+
+        # while True:
+        #     self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        #     time.sleep(3)
+        #     # Calcular la altura        
+        #     new_height = self.driver.execute_script("return document.body.scrollHeight")
+            
+        #     if new_height == last_height:
+        #         break
+            
+        #     last_height = new_height
+
+        # time.sleep(5)
+
+        # products_list = products_wrapper.find_element(By.CSS_SELECTOR, "ol.products.list.items.product-items")
+        # products = products_list.find_elements(By.TAG_NAME, "li")
+
+        # product_names = []
+        # product_prices = []
+
+        # for product in products:
+        #     product_name = product.find_element(By.CSS_SELECTOR, "a.product-item-link").text
+        #     product_names.append(product_name)
+            
+        #     product_price = product.find_element(By.CSS_SELECTOR, "span.price").text
+        #     product_prices.append(product_price)
+            
+        # df = pd.DataFrame({
+        #         'Nombre del producto': product_names,
+        #         'Precio del producto': product_prices
+        # })
+
+        # df.to_excel('gorras.xlsx', index=False)
+        # df.to_csv('gorras.csv', index=False)    
+        # print("Guardados")
