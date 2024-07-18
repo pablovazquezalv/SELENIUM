@@ -19,84 +19,94 @@ class Scraping:
         chrome_options.add_argument('--allow-running-insecure-content')
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
         chrome_options.add_argument("start-maximized")
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+        self.driver = driver
 
-        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     def iniciar_proceso(self, url, search_term):
         self.driver.get(url)
-
+        i = 0
         # Buscar por header
         try:
             header = self.driver.find_element(By.TAG_NAME, "header")
             search_box = header.find_element(By.TAG_NAME, "input")
         except Exception as e:
             print("Header or input not found, searching for nav")
-            # Si no encuentra el header o el input, buscar por nav
+
             nav = self.driver.find_element(By.TAG_NAME, "nav")
             search_box = nav.find_element(By.TAG_NAME, "input")
 
-        # Ingresar el término de búsqueda y enviar
         time.sleep(5)
         search_box.send_keys(search_term)
         search_box.submit()
 
         wait = WebDriverWait(self.driver, 10)
-        
-        try:
-            products_wrapper = wait.until(EC.presence_of_element_located((By.TAG_NAME, "ol")))
-            products_list = products_wrapper.find_elements(By.TAG_NAME, "li")
+
+        try:        
+            products_wrapper = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.products.wrapper.grid.products-grid")))
         except Exception as e:
-            print("Products not found with tag ol, searching by class")
-
-            # Intentar hacer clic en el botón del CAPTCHA si está presente
-            try:
-                captcha_button = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "yCmsContentSlot.navigation-menu-desktop.hidden-sm.hidden-xs")))
-                actions = ActionChains(self.driver)
-                actions.click_and_hold(captcha_button).pause(5).release().perform()
-                print("Captcha resolved and button clicked")
-            except Exception as e:
-                print("Captcha button not found or not clickable")
-
-            # Buscar por la clase específica en los divs
-            products_wrapper = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".products.columns-4")))
-            products_list = products_wrapper.find_elements(By.CSS_SELECTOR, "div.product-small.col.has-hover")
+            print("Products wrapper not found, searching for col large-9")
+            products_wrapper = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.yit-wcan-container")))
+            
 
         last_height = self.driver.execute_script("return document.body.scrollHeight")
 
         while True:
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(3)
-            new_height = self.driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                break
-            last_height = new_height
+          self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-        time.sleep(5)
+          time.sleep(3)
+            #calcular la altura        
+          new_height = self.driver.execute_script("return document.body.scrollHeight")
 
+          if new_height == last_height:
+              break
+
+          last_height = new_height
+
+          time.sleep(5) 
+
+
+
+
+        try:
+            products_list = products_wrapper.find_element(By.CSS_SELECTOR, "ol.products.list.items.product-items")
+            products = products_list.find_elements(By.TAG_NAME, "li")
+        except Exception as e:
+            print("Products list not found, searching for product-item")
+            #class="products row row-small large-columns-3 medium-columns-3 small-columns-2"
+            products_list = products_wrapper.find_element(By.CSS_SELECTOR, "div.products.row.row-small.large-columns-3.medium-columns-3.small-columns-2")
+           #class="product-small col has-hover product type-product post-240661 status-publish first instock product_cat-otros product_tag-cap-care product_tag-new-era has-post-thumbnail shipping-taxable purchasable product-type-simple"
+            products = products_list.find_elements(By.CSS_SELECTOR, "div.product-small.col.has-hover.product.type-product.post-240661.status-publish.first.instock.product_cat-otros.product_tag-cap-care.product_tag-new-era.has-post-thumbnail.shipping-taxable.purchasable.product-type-simple")
+            
+        
         product_names = []
         product_prices = []
 
-        for product in products_list:
+        for product in products:
             try:
-                product_name = product.find_element(By.CSS_SELECTOR, "p.name.product-title.woocommerce-loop-product__title a").text
+                product_name = product.find_element(By.CSS_SELECTOR, "a.product-item-link").text
                 product_names.append(product_name)
-            except Exception as e:
-                print("No se encontró el nombre del producto")
-                product_names.append("N/A")
-
-            try:
-                product_price = product.find_element(By.CSS_SELECTOR, "span.price span.woocommerce-Price-amount.amount").text
+                product_price = product.find_element(By.CSS_SELECTOR, "span.price").text
                 product_prices.append(product_price)
             except Exception as e:
-                print("No se encontró el precio del producto")
-                product_prices.append("N/A")
+                print("Product name or price not found, skipping")
+                #class="name product-title woocommerce-loop-product__title"
+                product_name = product.find_element(By.CSS_SELECTOR,"p.name.product-title.woocommerce-loop-product__title").text
+                product_names.append(product_name)
+                #class="woocommerce-Price-amount amount"
+                product_price = product.find_element(By.CSS_SELECTOR, "span.woocommerce-Price-amount.amount").text
+                product_prices.append(product_price)
+
+
+
+
 
         df = pd.DataFrame({
             'Nombre del producto': product_names,
             'Precio del producto': product_prices
         })
-
-        df.to_excel(f'{search_term}.xlsx', index=False)
+        i += 1
+        df.to_excel(f"productos{i}.xlsx", index=False)
 
     def cerrar_driver(self):
         self.driver.quit()
@@ -107,7 +117,7 @@ if __name__ == "__main__":
     scraping.iniciar_proceso("https://2cap.com.mx", "gorras")
     print("Proceso terminado")
    
-    scraping.iniciar_proceso("https://thefantown.com/?s=gorras&post_type=product", "gorras")
+    scraping.iniciar_proceso("https://thefantown.com", "gorras")
     print("Proceso terminado")    
     scraping.iniciar_proceso("https://www.47brand.com", "caps")
     scraping.cerrar_driver()
