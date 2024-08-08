@@ -1,0 +1,49 @@
+{
+    "paginas": [
+        {
+            "pagina": "tecnm",
+            "url": "https://www.tecnm.mx/?vista=TecNM_Virtual&tecnm_virtual=Capitacion_Linea&S=G",
+            "acciones": [
+              
+                {
+                    "tipo": "esperar_elemento",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"
+                    }
+                },
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+                {
+                    "tipo": "click",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='programa_educativo']"
+                    }
+                    
+                },
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='programa_educativo']"
+                    },
+                    "value": "Arquitectura"
+                },
+                {
+                    "tipo":"extract",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"
+                    }
+                }
+        
+            ]
+        }
+    ]
+}

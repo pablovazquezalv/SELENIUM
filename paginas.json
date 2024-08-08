@@ -1,0 +1,200 @@
+{
+    "paginas": [
+        {
+            "pagina": "2caps",
+            "url": "https://2cap.com.mx",
+            "acciones": [
+                {
+                    "tipo": "click",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "input-text"
+                    }
+                },
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "ID",
+                        "value": "search"
+                    },
+                    "value": "gorras"
+                },
+                {
+                    "tipo": "esperar_elemento",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".column.main.infinite-scroll"
+                    }
+                },
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+                {
+                    "tipo": "extract",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".products.list.items.product-items"
+                    },
+                    "item_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "li.item.product.product-item"
+                    },
+                    "fields": [
+                        {
+                            "name": "name",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "a.product-item-link"
+                            }
+                        },
+                        {
+                            "name": "price",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "span.price"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },   
+     
+        {
+            "pagina": "frikko",
+            "url": "https://www.frikko.com",
+            "acciones": [
+                {
+                    "tipo": "click",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".menu-item-text"
+                    }
+                },
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".facetwp-search"
+                    },
+                    "value": "minisplit"
+                },
+                {
+                    "tipo": "esperar_elemento",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".woopack-grid-wrap"
+                    }
+                },
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+                {
+                    "tipo": "extract",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".woopack-grid-wrap"
+                    },
+                    "item_selector": {
+                        "by": "ID",
+                        "value": "woopack-product-6467"
+                    },
+                    "fields": [
+                        {
+                            "name": "name",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "h3.woopack-product-title"
+                            }
+                        },
+                        {
+                            "name": "price",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "span.price"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "pagina": "budesliga",
+            "url": "https://www.bundesliga.com/es/bundesliga/clasificacion",
+            "acciones": [
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+                {
+                    "tipo": "extract_table",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".table"
+                    },
+                    "fields": [
+                        {
+                            "name": "rank",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "td.rank"
+                            }
+                        },
+                        {
+                            "name": "tend",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "td.tend"
+                            }
+                        },
+                        {
+                            "name": "logo",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "td.logo"
+                            }
+                        },
+                        {
+                            "name": "team",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "td.team span.d-none.d-sm-inline-block"
+                            }
+                        },
+                        {
+                            "name": "live",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "td.live"
+                            }
+                        },
+                        {
+                            "name": "matches",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "td.matches"
+                            }
+                        },
+                        {
+                            "name": "wins",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "td.wins"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
