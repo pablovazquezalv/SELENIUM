@@ -1,10 +1,115 @@
 {
     "paginas": [
         {
-            "pagina": "tecnm",
+            "pagina": "Arquitectura",
             "url": "https://www.tecnm.mx/?vista=TecNM_Virtual&tecnm_virtual=Capitacion_Linea&S=G",
             "acciones": [
+                {
+                    "tipo": "esperar_elemento",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"
+                    }
+                },
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+               
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='programa_educativo']"
+                    },
+                    "value": "Arquitectura"
+                },
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='registros']"
+                    },
+                    "value": "25"
+
+                },
               
+                {
+                    "tipo": "extract",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"  
+                    },
+                    "item_selector": {
+
+                        "by": "CSS_SELECTOR",
+                        "value": "div.row.mx-auto.border.border-primary.d-flex.mb-3.mb-xl-0.d-flex"
+                    },
+                    "fields": [
+                        {
+                            "name": "Programa Educativo",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "div:nth-child(1)"
+
+                            }
+
+                            },
+                            {
+                                "name": "Asignatura",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(2)"
+                                }
+                            },
+                            {
+                                "name": "Tema",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(3)"
+                                }
+                            },
+                            {
+                                "name": "Sitio",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(4)"
+                                }
+                            },
+                            {
+                                "name": "Enlace Directo",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(5) a"
+                                }
+                            },
+                            {
+                                "name": "Alcance",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(6)"
+                                }
+                            },
+                            {
+                                "name": "Observaciones",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(7)"
+                                }
+                            }
+                        
+                        
+                    ]
+                }
+            ]
+        },
+        {
+            "pagina": "Ingeniería Ambiental",
+            "url": "https://www.tecnm.mx/?vista=TecNM_Virtual&tecnm_virtual=Capitacion_Linea&S=G",
+            "acciones": [
                 {
                     "tipo": "esperar_elemento",
                     "selector": {
@@ -25,7 +130,6 @@
                         "by": "CSS_SELECTOR",
                         "value": "select[name='programa_educativo']"
                     }
-                    
                 },
                 {
                     "tipo": "send_keys",
@@ -33,16 +137,91 @@
                         "by": "CSS_SELECTOR",
                         "value": "select[name='programa_educativo']"
                     },
-                    "value": "Arquitectura"
+                    "value": "Ingeniería Ambiental"
                 },
                 {
-                    "tipo":"extract",
+                    "tipo": "click",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='registros']"
+                    }
+                },
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='registro']"
+                    },
+                    "value": "25"
+                },
+
+                {
+                    "tipo": "extract",
                     "container_selector": {
                         "by": "CSS_SELECTOR",
-                        "value": ".container-fluid.mx-auto.border.p-2"
-                    }
+                        "value": ".container-fluid.mx-auto.border.p-2"  
+                    },
+                    "item_selector": {
+
+                        "by": "CSS_SELECTOR",
+                        "value": "div.row.mx-auto.border.border-primary.d-flex.mb-3.mb-xl-0.d-flex"
+                    },
+                    "fields": [
+                        {
+                            "name": "Programa Educativo",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "div:nth-child(1)"
+
+                            }
+
+                            },
+                            {
+                                "name": "Asignatura",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(2)"
+                                }
+                            },
+                            {
+                                "name": "Tema",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(3)"
+                                }
+                            },
+                            {
+                                "name": "Sitio",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(4)"
+                                }
+                            },
+                            {
+                                "name": "Enlace Directo",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(5) a"
+                                }
+                            },
+                            {
+                                "name": "Alcance",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(6)"
+                                }
+                            },
+                            {
+                                "name": "Observaciones",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(7)"
+                                }
+                            }
+                        
+                        
+                    ]
                 }
-        
             ]
         }
     ]

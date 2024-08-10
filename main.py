@@ -43,6 +43,7 @@ class WebScraper:
                     accion.escribirPalabra(self.driver, self.wait, accion_config, pagina['pagina'])
                 elif action_type == 'scroll':
                     accion.hacerScroll(self.driver, self.wait, accion_config, pagina['pagina'])
+             
                 elif action_type == 'extract':
                     accion.extraerInfo(self.driver, self.wait, accion_config, pagina['pagina'])
                 elif action_type == 'extract_table':
@@ -53,7 +54,7 @@ class WebScraper:
             self.driver.quit()
 
 if __name__ == "__main__":
-    scraper = WebScraper(config_file='examen.json')
+    scraper = WebScraper(config_file='paginas.json')
     scraper.configurarDriver()
     scraper.hacerAcciones()
     scraper.quit()

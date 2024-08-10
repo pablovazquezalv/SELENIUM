@@ -33,9 +33,10 @@ class Accion:
                 print(container)
                 rows = container.find_elements(by=getattr(By, accion['item_selector']['by'].upper()), value=accion['item_selector']['value'])
 
-
+                #ver las rows
+                pd.DataFrame(rows).to_csv('rows.csv')
                 print(f"Total rows found in {pagina}: {len(rows)}")
-
+                print(rows) 
                 extracted_data = []
                 for row in rows:
                     data = {}
@@ -58,7 +59,7 @@ class Accion:
         try:
             print(f"Sending keys to {pagina}")
             
-
+            time.sleep(10)
             element = wait.until(EC.element_to_be_clickable((getattr(By, accion['selector']['by'].upper()), accion['selector']['value'])))
             element.send_keys(accion['value'])
             element.send_keys(Keys.ENTER)
@@ -74,37 +75,67 @@ class Accion:
         except Exception as e:
             print(f"Error waiting for element in {pagina}: {e}")
 
-    #listo
     def extraerInfo(self, driver, wait, accion, pagina):
         try:
-
-            time.sleep(5)
-        
+            time.sleep(10)
             container = driver.find_element(by=getattr(By, accion['container_selector']['by'].upper()), value=accion['container_selector']['value'])
-
             # Encuentra todos los elementos <li> dentro del contenedor
             print(container)
             rows = container.find_elements(by=getattr(By, accion['item_selector']['by'].upper()), value=accion['item_selector']['value'])
-
 
             print(f"Total rows found in {pagina}: {len(rows)}")
 
             extracted_data = []
             for row in rows:
                 data = {}
+
                 for field in accion['fields']:
                     try:
                         element = row.find_element(by=getattr(By, field['selector']['by'].upper()), value=field['selector']['value'])
+                        print(f"Element found for field '{field['name']}': {element.text}")
                         data[field['name']] = element.text.strip() if field['name'] != 'link' else element.get_attribute('href').strip()
-                    except NoSuchElementException:
-                        data[field['name']] = ''
+                    except Exception as e:
+                        print(f"Error extracting field '{field['name']}' in {pagina}: {e}")
+                        data[field['name']] = None  # Puedes optar por guardar 'None' o algún valor predeterminado
+
                 if any(data.values()):
                     extracted_data.append(data)
                     print(f"Extracted data: {data}")
 
+            print(f"Extracted data from {pagina}: {extracted_data}")   
             self.save_to_files(extracted_data, pagina)
         except Exception as e:
-            print(f"Error extracting data in {pagina}: {e}")
+            print(f"Error extracting data in {pagina}: {e}")      
+    # def extraerInfo(self, driver, wait, accion, pagina):
+    #     try:
+
+    #         time.sleep(5)
+        
+    #         container = driver.find_element(by=getattr(By, accion['container_selector']['by'].upper()), value=accion['container_selector']['value'])
+
+    #         # Encuentra todos los elementos <li> dentro del contenedor
+    #         print(container)
+    #         rows = container.find_elements(by=getattr(By, accion['item_selector']['by'].upper()), value=accion['item_selector']['value'])
+
+
+    #         print(f"Total rows found in {pagina}: {len(rows)}")
+
+    #         extracted_data = []
+    #         for row in rows:
+    #             data = {}
+    #             for field in accion['fields']:
+    #                 try:
+    #                     element = row.find_element(by=getattr(By, field['selector']['by'].upper()), value=field['selector']['value'])
+    #                     data[field['name']] = element.text.strip() if field['name'] != 'link' else element.get_attribute('href').strip()
+    #                 except NoSuchElementException:
+    #                     data[field['name']] = ''
+    #             if any(data.values()):
+    #                 extracted_data.append(data)
+    #                 print(f"Extracted data: {data}")
+
+    #         self.save_to_files(extracted_data, pagina)
+    #     except Exception as e:
+    #         print(f"Error extracting data in {pagina}: {e}")
         
 
     def extraerTabla(self, driver, wait, accion, pagina):
@@ -137,12 +168,15 @@ class Accion:
                         extracted_data.append(data)
                         print(f"Extracted data from {pagina}: {data}")
             # Guarda los datos o haz algo con ellos
+            print(f"Extracted data from {pagina}: {extracted_data}")
+            self.save_to_files(extracted_data, pagina)
         except Exception as e:
             print(f"Error extracting table data on {pagina}: {e}")
 
     def save_to_files(self,data, description):
             try:
                 df = pd.DataFrame(data)
+
                 df.to_csv(f'{description}.csv', index=False)
                 print(f"Data saved to {description}.csv")
             except Exception as e:

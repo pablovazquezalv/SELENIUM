@@ -1,6 +1,61 @@
 {
     "paginas": [
         {
+            "pagina": "frikko",
+            "url": "https://www.frikko.com",
+            "acciones": [
+                {
+                    "tipo": "click",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".menu-item-text"
+                    }
+                },
+              
+                {
+                    "tipo": "esperar_elemento",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".woopack-grid-wrap"
+                    }
+                },
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+                {
+                    "tipo": "extract",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "ul.woopack-products.products"
+                    },
+                    "item_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "li"
+                    },
+                    "fields": [
+                        {
+                            "name": "name",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "div.woopack-product-content h3.woopack-product-title"
+                            }
+                        },
+                        {
+                            "name": "price",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "span.price"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "pagina": "2caps",
             "url": "https://2cap.com.mx",
             "acciones": [
@@ -63,68 +118,7 @@
             ]
         },   
      
-        {
-            "pagina": "frikko",
-            "url": "https://www.frikko.com",
-            "acciones": [
-                {
-                    "tipo": "click",
-                    "selector": {
-                        "by": "CSS_SELECTOR",
-                        "value": ".menu-item-text"
-                    }
-                },
-                {
-                    "tipo": "send_keys",
-                    "selector": {
-                        "by": "CSS_SELECTOR",
-                        "value": ".facetwp-search"
-                    },
-                    "value": "minisplit"
-                },
-                {
-                    "tipo": "esperar_elemento",
-                    "selector": {
-                        "by": "CSS_SELECTOR",
-                        "value": ".woopack-grid-wrap"
-                    }
-                },
-                {
-                    "tipo": "scroll",
-                    "settings": {
-                        "repetitions": 2,
-                        "wait_time": 2
-                    }
-                },
-                {
-                    "tipo": "extract",
-                    "container_selector": {
-                        "by": "CSS_SELECTOR",
-                        "value": ".woopack-grid-wrap"
-                    },
-                    "item_selector": {
-                        "by": "ID",
-                        "value": "woopack-product-6467"
-                    },
-                    "fields": [
-                        {
-                            "name": "name",
-                            "selector": {
-                                "by": "CSS_SELECTOR",
-                                "value": "h3.woopack-product-title"
-                            }
-                        },
-                        {
-                            "name": "price",
-                            "selector": {
-                                "by": "CSS_SELECTOR",
-                                "value": "span.price"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
+        
         {
             "pagina": "budesliga",
             "url": "https://www.bundesliga.com/es/bundesliga/clasificacion",
@@ -192,6 +186,224 @@
                                 "value": "td.wins"
                             }
                         }
+                    ]
+                }
+            ]
+        },
+        {
+            "pagina": "Arquitectura",
+            "url": "https://www.tecnm.mx/?vista=TecNM_Virtual&tecnm_virtual=Capitacion_Linea&S=G",
+            "acciones": [
+                {
+                    "tipo": "esperar_elemento",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"
+                    }
+                },
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+               
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='programa_educativo']"
+                    },
+                    "value": "Arquitectura"
+                },
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='registros']"
+                    },
+                    "value": "25"
+
+                },
+              
+                {
+                    "tipo": "extract",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"  
+                    },
+                    "item_selector": {
+
+                        "by": "CSS_SELECTOR",
+                        "value": "div.row.mx-auto.border.border-primary.d-flex.mb-3.mb-xl-0.d-flex"
+                    },
+                    "fields": [
+                        {
+                            "name": "Programa Educativo",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "div:nth-child(1)"
+
+                            }
+
+                            },
+                            {
+                                "name": "Asignatura",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(2)"
+                                }
+                            },
+                            {
+                                "name": "Tema",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(3)"
+                                }
+                            },
+                            {
+                                "name": "Sitio",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(4)"
+                                }
+                            },
+                            {
+                                "name": "Enlace Directo",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(5) a"
+                                }
+                            },
+                            {
+                                "name": "Alcance",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(6)"
+                                }
+                            },
+                            {
+                                "name": "Observaciones",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(7)"
+                                }
+                            }
+                        
+                        
+                    ]
+                }
+            ]
+        },
+        {
+            "pagina": "Ingeniería Ambiental",
+            "url": "https://www.tecnm.mx/?vista=TecNM_Virtual&tecnm_virtual=Capitacion_Linea&S=G",
+            "acciones": [
+                {
+                    "tipo": "esperar_elemento",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"
+                    }
+                },
+                {
+                    "tipo": "scroll",
+                    "settings": {
+                        "repetitions": 2,
+                        "wait_time": 2
+                    }
+                },
+
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='programa_educativo']"
+                    },
+                    "value": "Ingeniería Ambiental"
+                },
+                {
+                    "tipo": "click",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='registros']"
+                    }
+                },
+                {
+                    "tipo": "send_keys",
+                    "selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": "select[name='registro']"
+                    },
+                    "value": "25"
+                },
+
+                {
+                    "tipo": "extract",
+                    "container_selector": {
+                        "by": "CSS_SELECTOR",
+                        "value": ".container-fluid.mx-auto.border.p-2"  
+                    },
+                    "item_selector": {
+
+                        "by": "CSS_SELECTOR",
+                        "value": "div.row.mx-auto.border.border-primary.d-flex.mb-3.mb-xl-0.d-flex"
+                    },
+                    "fields": [
+                        {
+                            "name": "Programa Educativo",
+                            "selector": {
+                                "by": "CSS_SELECTOR",
+                                "value": "div:nth-child(1)"
+
+                            }
+
+                            },
+                            {
+                                "name": "Asignatura",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(2)"
+                                }
+                            },
+                            {
+                                "name": "Tema",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(3)"
+                                }
+                            },
+                            {
+                                "name": "Sitio",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(4)"
+                                }
+                            },
+                            {
+                                "name": "Enlace Directo",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(5) a"
+                                }
+                            },
+                            {
+                                "name": "Alcance",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(6)"
+                                }
+                            },
+                            {
+                                "name": "Observaciones",
+                                "selector": {
+                                    "by": "CSS_SELECTOR",
+                                    "value": "div:nth-child(7)"
+                                }
+                            }
+                        
+                        
                     ]
                 }
             ]
